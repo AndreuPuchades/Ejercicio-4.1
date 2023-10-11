@@ -95,7 +95,7 @@ async function updateDatos(id, data) {
 //Preguntar el título de una nueva tarea y la añadirá, mostrando por consola lo devuelto por la API.
 async function quintoMetodo(idUser) {
     const title = prompt('Introduce el titulo de tu nueva tarea:');
-    const data = {"userId" : idUser, "id" : getAllTodos().lenght, "title" : title, "completed" : false};
+    const data = {"userId" : idUser, "id" : getTodoById(idUser).id, "title" : title, "completed" : false};
     const newTodo = await createDatos(data);
     console.log(newTodo);
 }
@@ -109,8 +109,8 @@ async function createDatos(data) {
     return response.json();
 }
 
-async function getAllTodos() {
-    const response = await fetch(server + '/todos/');
+async function getTodoById(id) {
+    const response = await fetch(server + '/todos/' + id);
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
